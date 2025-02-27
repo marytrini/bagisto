@@ -102,6 +102,8 @@
                 font-size: 10px;
                 color: #091341;
                 font-family: "{{ $fontFamily['regular'] }}";
+                max-width: 58mm;
+                
             }
 
             b, th {
@@ -110,12 +112,13 @@
 
             .page-content {
                 padding: 12px;
+                max-width: 58mm;
             }
 
             .page-header {
                 border-bottom: 1px solid #E9EFFC;
                 text-align: center;
-                font-size: 24px;
+                font-size: 20px;
                 text-transform: uppercase;
                 color: #000DBB;
                 padding: 24px 0;
@@ -280,7 +283,12 @@
                         </tr>
                     </tbody>
                 </table>
-                
+                <div class="comments">
+                    <h3>@lang('shop::app.customers.account.orders.invoice-pdf.comments')</h3>
+                    @foreach ($invoice->comments as $comment)
+                        <p>{{ $comment->comment }}</p>
+                    @endforeach
+                </div>
                 <!-- Invoice Information -->
                 <table class="{{ core()->getCurrentLocale()->direction }}">
                     <tbody>

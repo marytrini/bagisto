@@ -189,6 +189,12 @@ class OrderController extends Controller
 
         $comment = $this->orderCommentRepository->create($validatedData);
 
+        $order = $this->orderRepository->find($id);
+        foreach($order->invoices as $invoice) {
+            $invoice->comments()->create([['comment'],
+            'customer_notified' => $validatedData['customer_notified']
+            ]);
+        }
         Event::dispatch('sales.order.comment.create.after', $comment);
 
         session()->flash('success', trans('admin::app.sales.orders.view.comment-success'));

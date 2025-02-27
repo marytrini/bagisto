@@ -111,4 +111,8 @@ class Invoice extends Model implements InvoiceContract
     {
         return InvoiceFactory::new();
     }
+
+    public function comments(){
+        return $this->hasMany(OrderComment::class, 'invoice_id');
+    }
 }

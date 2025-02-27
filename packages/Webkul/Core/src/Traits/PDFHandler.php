@@ -16,7 +16,7 @@ trait PDFHandler
     protected function downloadPDF(string $html, ?string $fileName = null)
     {
         if (is_null($fileName)) {
-            $fileName = Str::random(32);
+            $fileName = (string) Str::uuid();
         }
 
         $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
@@ -37,9 +37,10 @@ trait PDFHandler
                 $fileName.'.pdf'
             );
         }
+        $customPaperSize = [0, 0, 164.409, 226.772]; // 58mm x 58mm
 
         return PDF::loadHTML($this->adjustArabicAndPersianContent($html))
-            ->setPaper('A4', 'portrait')
+            ->setPaper($customPaperSize)
             ->set_option('defaultFont', 'Courier')
             ->download($fileName.'.pdf');
     }
