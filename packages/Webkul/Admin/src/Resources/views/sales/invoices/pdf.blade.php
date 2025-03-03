@@ -150,7 +150,6 @@
 
     .total-row {
         display: flex;
-        justify-content: space-between;
         font-size: 3.5mm; /* Increased from 3mm */
     }
 
@@ -196,12 +195,6 @@
                 @endif
             </div>
 
-            <div class="header-title">PKS MARKET</div>
-            <div class="text-center mb-3">
-                <div class="text-[10px]">Calle Principal #123</div>
-                <div class="text-[10px]">Tel: 123-456-7890</div>
-            </div>
-
             <div class="text-center font-bold border-y border-dashed border-gray-400 py-1 mb-2">FACTURA</div>
 
             <div class="mb-1 text-[10px]">
@@ -220,41 +213,22 @@
             </div>
 
             <div class="divider"></div>
-            <div class="section-title">Método de Pago:</div>
-            <div class="text-[10px]">{{ core()->getConfigData('sales.payment_methods.' . $invoice->order->payment->method . '.title') }}</div>
-
-            <div class="divider"></div>
-            <div class="section-title">Método de Envío:</div>
-            <div class="text-[10px]">{{ $invoice->order->shipping_title }}</div>
-
-            <div class="divider"></div>
             <div class="section-title">PRODUCTOS:</div>
-            <div class="mb-2">
+            <div>
                 @foreach ($invoice->items as $item)
                     <div class="item">
-                        <div class="item-name">{{ $item->name }}</div>
                         <div class="item-details">
-                            <span>{{ $item->qty }} x {{ core()->formatBasePrice($item->base_price, true) }}</span>
-                            <span>{{ core()->formatBasePrice($item->base_total, true) }}</span>
+                            <span>{{ $item->qty }} x {{ $item->name }}</span>
                         </div>
-                        <div class="text-[9px] text-gray-600">SKU: {{ $item->getTypeInstance()->getOrderedItem($item)->sku }}</div>
                     </div>
                 @endforeach
             </div>
 
             <div class="divider"></div>
             <div class="totals">
-                <div class="total-row">
-                    <span>Subtotal:</span>
-                    <span>{{ core()->formatBasePrice($invoice->base_sub_total, true) }}</span>
-                </div>
-                <div class="total-row">
-                    <span>Envío:</span>
-                    <span>{{ core()->formatBasePrice($invoice->base_shipping_amount, true) }}</span>
-                </div>
                 <div class="total-row final">
-                    <span>TOTAL:</span>
-                    <span>{{ core()->formatBasePrice($invoice->base_grand_total, true) }}</span>
+                    <span>TOTAL ORDEN:</span>
+                    <span>{{ $invoice->total_qty }}</span>
                 </div>
             </div>
 
